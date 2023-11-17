@@ -3,7 +3,7 @@
 </script>
 
 <div class="mt-5">
-    {#each todos as todo}
+    {#each todos as todo (todo.id)}
         <div
             class="flex items-center ps-4 border border-gray-200 rounded my-2 shadow-sm cursor-pointer hover:shadow-md py-4"
         >
@@ -13,6 +13,7 @@
                 checked={todo.completed}
                 value=""
                 class="w-6 h-6 checkbox-teal text-teal-600 bg-gray-100 border-gray-300 rounded  focus:ring-teal-500 cursor-pointer"
+                on:click={() => (todo.completed = !todo.completed)}
             />
             <label
                 for={todo.id}

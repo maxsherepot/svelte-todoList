@@ -4,7 +4,7 @@
     import FilterPanel from "./components/FilterPanel.svelte";
     import TodoList from "./components/TodoList.svelte";
 
-    let initialTodos = [
+    let todos = [
         { id: 1, task: "some task 1", completed: false },
         { id: 2, task: "some task 2", completed: true },
         { id: 3, task: "some task 3", completed: false },
@@ -12,29 +12,29 @@
 
     let filter = "all";
 
-    const filterTodos = (filter, todos) =>
+    $: filterTodos = (filter) =>
         filter === "active"
             ? todos.filter((t) => !t.completed)
             : filter === "completed"
             ? todos.filter((t) => t.completed)
             : todos;
 
-    $: todos = filterTodos(filter, initialTodos);
+    $: filtered = filterTodos(filter);
 
-    function onAddTodo(e) {
+    function onAddTodo(task) {
         const newTodo = {
             id: Date.now(),
-            task: e.detail,
+            task,
             completed: false,
         };
-        initialTodos = [...todos, newTodo];
+        todos = [...todos, newTodo];
     }
 </script>
 
 <div class="mx-auto mt-20 max-w-lg">
-    <AddTodoPanel on:addTodo={onAddTodo} />
+    <AddTodoPanel on:addTodo={(e) => onAddTodo(e.detail)} />
     <FilterPanel bind:filter />
-    <TodoList {todos} />
+    <TodoList bind:todos={filtered} />
     <hr class="mt-5" />
     <ActionButtons />
 </div>
