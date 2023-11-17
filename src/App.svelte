@@ -27,7 +27,7 @@
             task: e.detail,
             completed: false,
         };
-        todos = [...todos, newTodo];
+        initialTodos = [...todos, newTodo];
     }
 </script>
 
