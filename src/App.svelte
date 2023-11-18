@@ -29,6 +29,14 @@
         };
         todos = [...todos, newTodo];
     }
+
+    function onCheckAllTodos(checked) {
+        todos = todos.map((t) => ({ ...t, completed: checked }));
+    }
+
+    function onRemoveCompletedTodos() {
+        todos = todos.filter((t) => !t.completed);
+    }
 </script>
 
 <div class="mx-auto mt-20 max-w-lg">
@@ -36,5 +44,8 @@
     <FilterPanel bind:filter />
     <TodoList bind:todos={filtered} />
     <hr class="mt-5" />
-    <ActionButtons />
+    <ActionButtons
+        on:checkAllTodos={(e) => onCheckAllTodos(e.detail)}
+        on:removeCompletedTodos={onRemoveCompletedTodos}
+    />
 </div>
