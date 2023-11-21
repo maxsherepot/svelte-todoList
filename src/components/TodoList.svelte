@@ -69,6 +69,7 @@
             {#if isInEditMode && todo.id === id}
                 <form
                     class="flex items-center w-full mt-4"
+                    transition:fade={{ delay: 0, duration: 300 }}
                     on:submit|preventDefault={() => onEditTodo(todo)}
                 >
                     <input
